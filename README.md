@@ -165,7 +165,3 @@ func (t *TypeMapper) GetDESC() interface{} {
 ## Contributing
 
 We welcome contributions to the Prisma Query Parser library. If you'd like to contribute, please fork the repository and submit a pull request with your changes.
-
-## License
-
-Prisma Query Parser is licensed under the MIT License.
