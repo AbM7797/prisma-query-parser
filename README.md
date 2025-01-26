@@ -161,6 +161,8 @@ func (t *TypeMapper) GetDESC() interface{} {
 	return t.types["desc"]
 }
 ```
+## Example Usage
+You can use the library by making a GET request to http://localhost:8888/posts?where[user][name][contains]=user&where[content][contains]=content1&orderBy[content]=asc&orderBy[title]=desc&take=2&skip=0&where[OR][0][AND][content][contains]=content1&where[OR][0][AND][title][contains]=post2&where[NOT][content]=content1&where[NOT][title]=post2
 
 ## Contributing
 
