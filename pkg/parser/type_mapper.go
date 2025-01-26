@@ -1,6 +1,6 @@
 package parser
 
-// TypeMapper définit l'interface pour la gestion des types spécifiques au projet
+// TypeMapper defines the interface for managing project-specific types
 type TypeMapper interface {
 	GetDBInstance(key string) interface{}
 	GetWhereClause(key string) interface{}
@@ -10,5 +10,5 @@ type TypeMapper interface {
 	GetDESC() interface{}
 }
 
-// Filter représente la structure de base des filtres
+// Filter represents the basic structure of filters
 type Filter map[string]interface{}

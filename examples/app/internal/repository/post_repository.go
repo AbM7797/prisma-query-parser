@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"log"
 
 	"github.com/AbM7797/prisma-query-parser/examples/app/internal/domain"
 	"github.com/AbM7797/prisma-query-parser/examples/app/pkg/types"
@@ -28,7 +27,6 @@ func NewPostRepository(client *db.PrismaClient, tm *types.TypeMapper) PostReposi
 }
 
 func (r *postRepository) Find(ctx context.Context, filters parser.Filter, customWhereFilters []db.PostWhereParam, customOrderByFilter []db.PostOrderByParam) ([]db.PostModel, error) {
-	log.Println("filters", filters)
 	whereFilters := parser.BuildWhereFilters(
 		filters,
 		customWhereFilters,

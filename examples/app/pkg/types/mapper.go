@@ -10,14 +10,13 @@ type TypeMapper struct {
 }
 
 func NewTypeMapper() *TypeMapper {
-	userWhereParam := new(db.UserWhereParam)
+	var userWhereParam db.UserWhereParam
 	userOrderByParam := new(db.UserOrderByParam)
 
 	var postWhereParam db.PostWhereParam
-	//postWhereParam := new(db.PostWhereParam)
 	postOrderByParam := new(db.PostOrderByParam)
 
-	commentWhereParam := new(db.CommentWhereParam)
+	var commentWhereParam db.CommentWhereParam
 	commentOrderByParam := new(db.CommentOrderByParam)
 
 	return &TypeMapper{
