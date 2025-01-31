@@ -8,6 +8,7 @@ type TypeMapper interface {
 	GetDomainType(key string) interface{}
 	GetASC() interface{}
 	GetDESC() interface{}
+	GetMode(key string) interface{}
 }
 
 // Filter represents the basic structure of filters

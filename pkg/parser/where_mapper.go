@@ -157,9 +157,7 @@ func processFilterOperation[T any, K any, C any](
 	// Step 1: Create filters dynamically
 	var filters []T
 	if operation == "Or" {
-		log.Println("conditions", conditions)
 		for _, val := range conditions {
-			log.Println("val", val)
 			// Map the condition using FilterMapper
 			filters = append(filters, WhereMapper(model, val.(Filter), returnType, where, tm)...)
 		}
