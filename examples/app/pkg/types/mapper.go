@@ -24,7 +24,7 @@ func NewTypeMapper() *TypeMapper {
 			//ASC
 			"asc":       db.ASC,
 			"desc":      db.DESC,
-			"intensive": db.QueryModeInsensitive,
+			"insensitive": db.QueryModeInsensitive,
 			
 			// user
 			"user_where":    userWhereParam,
