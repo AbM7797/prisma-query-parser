@@ -22,9 +22,10 @@ func NewTypeMapper() *TypeMapper {
 	return &TypeMapper{
 		types: map[string]interface{}{
 			//ASC
-			"asc":  db.ASC,
-			"desc": db.DESC,
-
+			"asc":       db.ASC,
+			"desc":      db.DESC,
+			"intensive": db.QueryModeInsensitive,
+			
 			// user
 			"user_where":    userWhereParam,
 			"user_order_by": userOrderByParam,
@@ -68,4 +69,8 @@ func (t *TypeMapper) GetASC() interface{} {
 
 func (t *TypeMapper) GetDESC() interface{} {
 	return t.types["desc"]
+}
+
+func (t *TypeMapper) GetMode(key string) interface{} {
+	return t.types[key]
 }
