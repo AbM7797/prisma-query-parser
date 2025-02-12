@@ -72,8 +72,10 @@ func convertInput(value, operator string, tm TypeMapper) interface{} {
 	default:
 		if operator == "Mode" {
 			return tm.GetMode(value)
+		} else if operator != "" {
+			return tm.GetString(value)
 		}
-		return tm.GetString(value) // Default return as string
+		return value // Default return as string
 	}
 }
 
