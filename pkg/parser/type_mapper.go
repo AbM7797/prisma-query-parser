@@ -9,6 +9,7 @@ type TypeMapper interface {
 	GetASC() interface{}
 	GetDESC() interface{}
 	GetMode(key string) interface{}
+	GetString(key string) interface{}
 }
 
 // Filter represents the basic structure of filters
