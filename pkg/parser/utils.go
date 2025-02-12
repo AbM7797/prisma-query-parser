@@ -21,6 +21,13 @@ func mapOperatorToPrismaMethod[T any, C any, K any](model K, field, operator, va
 	field, operator = getPrismaMethodName(field, operator)
 	log.Println("field", field, operator, value)
 	// Use reflection to find the method by name
+	if value == "<nil>" {
+		method := reflect.ValueOf(where).FieldByName(field).MethodByName("IsNull")
+		if method.IsValid() {
+			// Call the method dynamically and pass the value
+			return method.Call([]reflect.Value{})[0].Interface().(T), nil
+		}
+	}
 	method := reflect.ValueOf(where).FieldByName(field).MethodByName(operator)
 	if method.IsValid() {
 		// Call the method dynamically and pass the value
@@ -73,7 +80,7 @@ func convertInput(value, operator string, tm TypeMapper) interface{} {
 		if operator == "Mode" {
 			return tm.GetMode(value)
 		} else if operator != "" {
-			return tm.GetString(value)
+			return tm.GetValue(value)
 		}
 		return value // Default return as string
 	}

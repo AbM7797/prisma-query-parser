@@ -1,6 +1,8 @@
 package types
 
 import (
+	"time"
+
 	"github.com/AbM7797/prisma-query-parser/examples/app/internal/domain"
 	"github.com/AbM7797/prisma-query-parser/examples/app/prisma/db"
 )
@@ -75,9 +77,13 @@ func (t *TypeMapper) GetMode(key string) interface{} {
 	return t.types[key]
 }
 
-func (t *TypeMapper) GetString(key string) interface{} {
+func (t *TypeMapper) GetValue(key string) interface{} {
 	if str := t.types[key]; str != nil {
 		return str
+	}
+	// Try to parse the key itself as a time value
+	if parsedTime, err := time.Parse(time.RFC3339, key); err == nil {
+		return parsedTime
 	}
 	return key
 }
