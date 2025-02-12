@@ -102,11 +102,7 @@ func setNestedValue(obj Filter, path string, value interface{}) {
 		}
 
 		if isLastKey {
-			if existing, ok := currentObj[key].([]interface{}); ok {
-				currentObj[key] = append(existing, value)
-			} else {
-				currentObj[key] = value
-			}
+			currentObj[key] = value
 		} else {
 			if nested, ok := currentObj[key].(Filter); ok {
 				currentObj = nested

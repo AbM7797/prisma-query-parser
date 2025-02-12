@@ -1,6 +1,7 @@
 package types
 
 import (
+	"strings"
 	"time"
 
 	"github.com/AbM7797/prisma-query-parser/examples/app/internal/domain"
@@ -81,9 +82,12 @@ func (t *TypeMapper) GetValue(key string) interface{} {
 	if str := t.types[key]; str != nil {
 		return str
 	}
-	// Try to parse the key itself as a time value
-	if parsedTime, err := time.Parse(time.RFC3339, key); err == nil {
-		return parsedTime
+	trimmed := strings.Trim(key, "[]")
+	if trimmed == "" {
+		if parsedTime, err := time.Parse(time.RFC3339, key); err == nil {
+			return parsedTime
+		}
+		return key
 	}
-	return key
+	return strings.Split(trimmed, ",")
 }
