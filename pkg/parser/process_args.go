@@ -26,19 +26,7 @@ func ProcessArgs(args url.Values) Filter {
 			decodedKey = strings.ReplaceAll(decodedKey, `\[`, "[")
 			field := decodedKey[6 : len(decodedKey)-1]
 			field = strings.ReplaceAll(field, "][", ".")
-
-			// Handle array syntax [id1,id2]
-			if strings.HasPrefix(value, "[") && strings.HasSuffix(value, "]") {
-				arrayValues := strings.Split(value[1:len(value)-1], ",")
-				var parsedArray []interface{}
-				for _, v := range arrayValues {
-					parsedArray = append(parsedArray, convertInput(strings.TrimSpace(v), "", nil))
-				}
-				setNestedValue(where, field, parsedArray)
-			} else {
-				setNestedValue(where, field, convertInput(value, "", nil))
-			}
-
+			setNestedValue(where, field, convertInput(value, "", nil))
 			// Handle ORDER BY
 		} else if strings.HasPrefix(key, "orderBy[") {
 			decodedKey := strings.ReplaceAll(key, `\\]`, "]")
