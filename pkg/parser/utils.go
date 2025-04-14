@@ -21,8 +21,14 @@ func mapOperatorToPrismaMethod[T any, C any, K any](model K, field, operator, va
 	field, operator = getPrismaMethodName(field, operator)
 	log.Println("field", field, operator, value)
 	// Use reflection to find the method by name
-	if value == "<nil>" {
+	if value == "<nil>" && operator != "IsNot" {
 		method := reflect.ValueOf(where).FieldByName(field).MethodByName("IsNull")
+		if method.IsValid() {
+			// Call the method dynamically and pass the value
+			return method.Call([]reflect.Value{})[0].Interface().(T), nil
+		}
+	} else if value == "<nil>" && operator == "IsNot" {
+		method := reflect.ValueOf(where).FieldByName(field).MethodByName("NotIn")
 		if method.IsValid() {
 			// Call the method dynamically and pass the value
 			return method.Call([]reflect.Value{})[0].Interface().(T), nil
