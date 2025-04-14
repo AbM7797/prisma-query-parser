@@ -30,8 +30,14 @@ func mapOperatorToPrismaMethod[T any, C any, K any](model K, field, operator, va
 	} else if value == "<nil>" && operator == "IsNot" {
 		method := reflect.ValueOf(where).FieldByName(field).MethodByName("NotIn")
 		if method.IsValid() {
-			// Call the method dynamically and pass the value
-			return method.Call([]reflect.Value{})[0].Interface().(T), nil
+			// Get the method's expected parameter type
+			methodType := method.Type()
+			// Get the slice type expected by NotIn (e.g., []int, []string)
+			sliceType := methodType.In(0)
+			// Create a nil slice of the correct type
+			nilSlice := reflect.Zero(sliceType)
+			// Call the method with the nil slice
+			return method.Call([]reflect.Value{nilSlice})[0].Interface().(T), nil
 		}
 	}
 	method := reflect.ValueOf(where).FieldByName(field).MethodByName(operator)
